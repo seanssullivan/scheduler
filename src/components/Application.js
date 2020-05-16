@@ -44,9 +44,26 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
+  
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState(prev => ({
+      ...prev,
+      appointments
+    }));
+  }
   
   return (
     <main className="layout">
@@ -72,7 +89,10 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         { schedule }
-        { <Appointment key="last" time="6pm" interviewers={interviewers} /> }
+        { <Appointment
+          key="last"
+          time="6pm"
+        /> }
       </section>
     </main>
   );
