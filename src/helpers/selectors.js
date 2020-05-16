@@ -12,6 +12,19 @@ export function getAppointmentsForDay(state, day) {
 }
 
 /**
+ * Returns the interviewers objects for a specified day.
+ * @param {Object} state 
+ * @param {String} day 
+ */
+export function getInterviewersForDay(state, day) {
+  const dayInfo = state.days.find((obj) => obj.name === day);
+
+  return dayInfo ?
+    dayInfo.interviewers
+    .map(id => state.interviewers[id]) : [];
+}
+
+/**
  * Return an interview object containing the interviewer's information.
  * @param {Object} state 
  * @param {Object} interview 
