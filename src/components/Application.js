@@ -1,96 +1,32 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
+import { useApplicationData } from "hooks/useApplicationData";
 
 import "components/Application.scss";
 
 export default function Application(props) {
-  const [ state, setState ] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
-  const setDay = day => setState({ ...state, day });
-  
-  useEffect(() => {
-    Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ]).then((all) => {
-      setState(prev => ({
-        ...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data
-      }))
-    })
-  }, []);
-
-  function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios({
-      method: "put",
-      url: `/api/appointments/${id}`,
-      data: appointment
-    }).then((response) => {
-        setState(prev => ({
-          ...prev,
-          appointments
-        }));
-        return response;
-      });
-  }
-
-  function deleteInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios({
-      method: "delete",
-      url: `/api/appointments/${id}`,
-      data: appointment
-    }).then((response) => {
-        setState(prev => ({
-          ...prev,
-          appointments
-        }));
-        return response;
-      });
-  }
-  
-  const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
+  const appointments = getAppointmentsForDay(state, state.day);
 
   const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-    console.log(interview);
     return (
       <Appointment
         key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
+        {...appointment}
+        interview={getInterview(state, appointment.interview)}
         interviewers={interviewers}
         bookInterview={bookInterview}
-        deleteInterview={deleteInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -105,11 +41,7 @@ export default function Application(props) {
       />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-        <DayList 
-          days={ state.days }
-          day={ state.day }
-          setDay={ setDay }
-        />
+        <DayList days={ state.days } day={ state.day } setDay={ setDay } />
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
@@ -119,10 +51,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         { schedule }
-        { <Appointment
-          key="last"
-          time="6pm"
-        /> }
+        { <Appointment key="last" time="5pm" /> }
       </section>
     </main>
   );
