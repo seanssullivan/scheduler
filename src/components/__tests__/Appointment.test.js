@@ -6,10 +6,10 @@ import Appointment from "components/Appointment";
 
 afterEach(cleanup);
 
-describe("Appointment", (() => {
+describe("Appointment", () => {
 
   it("renders without crashing", () => {
     render(<Appointment />);
   });
   
-}))
+});
