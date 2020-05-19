@@ -70,28 +70,30 @@ export function useApplicationData() {
   }, []);
 
   function bookInterview(id, interview) {
-    return axios({
-      method: "put",
-      url: `/api/appointments/${id}`,
-      data: { ...state.appointments[id], interview: { ...interview } }
-    }).then((response) => {
-      dispatch({ type: SET_INTERVIEW, id, interview });
-      dispatch({ type: SET_REMAINING_SPOTS, value: -1 });
-      return response;
-    });
+    return axios.put(`/api/appointments/${id}`, { ...state.appointments[id], interview: { ...interview } })
+      .then((response) => {
+        dispatch({ type: SET_INTERVIEW, id, interview });
+        dispatch({ type: SET_REMAINING_SPOTS, value: -1 });
+        return response;
+      });
+  }
+
+  function editInterview(id, interview) {
+    return axios.put(`/api/appointments/${id}`, { ...state.appointments[id], interview: { ...interview } })
+      .then((response) => {
+        dispatch({ type: SET_INTERVIEW, id, interview });
+        return response;
+      });
   }
 
   function cancelInterview(id) {
-    return axios({
-      method: "delete",
-      url: `/api/appointments/${id}`,
-      data: { ...state.appointments[id], interview: null }
-    }).then((response) => {
-      dispatch({ type: SET_INTERVIEW, id, interview: null });
-      dispatch({ type: SET_REMAINING_SPOTS, value: 1 });
-      return response;
-    });
+    return axios.delete(`/api/appointments/${id}`, { ...state.appointments[id], interview: null })
+      .then((response) => {
+        dispatch({ type: SET_INTERVIEW, id, interview: null });
+        dispatch({ type: SET_REMAINING_SPOTS, value: 1 });
+        return response;
+      });
   }
 
-  return { state, setDay, bookInterview, cancelInterview }
+  return { state, setDay, bookInterview, editInterview, cancelInterview }
 }
