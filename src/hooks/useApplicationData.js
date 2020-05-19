@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios";
 
 const SET_DAY = "SET_DAY";
@@ -43,6 +43,20 @@ export function useApplicationData() {
   });
 
   const setDay = day => dispatch({ type: SET_DAY, day });
+
+  useEffect(() => {
+    const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    ws.onopen = (event) => {
+      ws.send("ping");
+    }
+    ws.onmessage = (event) => {
+      // console.log(`Message Received: ${event.data}`);
+      const response = JSON.parse(event.data);
+      if (response.type) {
+        dispatch(response);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     Promise.all([
