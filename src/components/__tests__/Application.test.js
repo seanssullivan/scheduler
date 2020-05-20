@@ -7,7 +7,6 @@ import {
   getAllByTestId,
   getByAltText,
   fireEvent,
-  prettyDOM,
   waitForElement,
   getByTestId
 } from "@testing-library/react";
