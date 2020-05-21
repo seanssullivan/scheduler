@@ -26,7 +26,9 @@ export default function reducer(state, action) {
 
   if (action.type === SET_REMAINING_SPOTS) {
     return { ...state, days: state.days.map(day => {
-      return { ...day, spots: day.spots + action.value }
+      return day.name === state.day ? 
+        { ...day, spots: day.spots + action.value } :
+        { ...day, spots: day.spots };
     })};
   }
 
