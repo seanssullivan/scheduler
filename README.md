@@ -1,4 +1,6 @@
 # Interview Scheduler
+A React-based scheduling app to create, edit and delete interview appointments.
+Built as part of the Lighthouse Labs Web Development Bootcamp.
 
 ## Setup
 
@@ -14,6 +16,12 @@ npm start
 
 ```sh
 npm test
+```
+
+## Running Cypress Test Framework
+
+```sh
+npm run cypress
 ```
 
 ## Running Storybook Visual Testbed
