@@ -24,7 +24,6 @@ export function useApplicationData() {
       ws.send("ping");
     }
     ws.onmessage = (event) => {
-      // console.log(`Message Received: ${event.data}`);
       const response = JSON.parse(event.data);
       if (response.type) {
         dispatch(response);
