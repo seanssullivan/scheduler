@@ -4,8 +4,8 @@ Built as part of the Lighthouse Labs Web Development Bootcamp.
 
 ## Screenshots
 
-! ["View scheduled interviews."] (https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/show-interviews.png)
-! ["Schedule a new interview."] (https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/add-interview.png)
+!["Screenshot of viewing scheduled interviews."](https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/show-interviews.png)
+!["Screenshot of scheduling an interview."](https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/add-interview.png)
 
 ## Setup
 
