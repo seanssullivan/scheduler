@@ -1,5 +1,8 @@
 # Interview Scheduler
-A React-based scheduling app to create, edit and delete interview appointments.
+A React-based scheduling app to create, edit and delete interview appointments. The app uses Axios to send and receive requests to an API server running on Express, and receives real-time updates using WebSockets.
+
+React components were developed using Storybook. Uses Jest and Cypress for testing.
+
 Built as part of the Lighthouse Labs Web Development Bootcamp.
 
 ## Screenshots
