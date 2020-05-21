@@ -2,6 +2,11 @@
 A React-based scheduling app to create, edit and delete interview appointments.
 Built as part of the Lighthouse Labs Web Development Bootcamp.
 
+## Screenshots
+
+! ["View scheduled interviews."] (https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/show-interviews.png)
+! ["Schedule a new interview."] (https://raw.githubusercontent.com/seanssullivan/scheduler/master/docs/add-interview.png)
+
 ## Setup
 
 Install dependencies with `npm install`.
